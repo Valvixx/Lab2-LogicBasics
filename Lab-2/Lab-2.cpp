@@ -4,62 +4,50 @@
 #pragma comment(linker, "/STACK:16726272216")
 
 /*
-int main(void)
-{
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-	setvbuf(stdin, NULL, _IONBF, 0);
-	setvbuf(stdout, NULL, _IONBF, 0);
+void multiply_and_time(int size) {
+    int a[size][size], b[size][size], c[size][size], elem_c;
+    int i, j, r;
 
-	clock_t start, end; // объявляем переменные для определения времени выполнения
-	double time_spent;
+    srand(time(NULL));
+    for (i = 0; i < size; i++)
+        for (j = 0; j < size; j++)
+            a[i][j] = rand() % 100 + 1;
 
-	int size = 2000;
+    srand(time(NULL));
+    for (i = 0; i < size; i++)
+        for (j = 0; j < size; j++)
+            b[i][j] = rand() % 100 + 1;
 
-	int i = 0, j = 0, r;
-	int a[2000][2000], b[2000][2000], c[2000][2000], elem_c;
+    clock_t start = clock();
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < size; j++) {
+            elem_c = 0;
+            for (r = 0; r < size; r++) {
+                elem_c += a[i][r] * b[r][j];
+            }
+            c[i][j] = elem_c;
+        }
+    }
+    clock_t end = clock();
+    double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
 
-	srand(time(NULL)); // инициализируем параметры генератора случайных чисел
-	while (i < size)
-	{
-		while (j < size)
-		{
-			a[i][j] = rand() % 100 + 1; // заполняем массив случайными числами
-			j++;
-		}
-		i++;
-	}
-	srand(time(NULL)); // инициализируем параметры генератора случайных чисел
-	i = 0; j = 0;
-	while (i < size)
-	{
-		while (j < size)
-		{
-			b[i][j] = rand() % 100 + 1; // заполняем массив случайными числами
-			j++;
-		}
-		i++;
-	}
+    printf("Size %d: Multiplication time: %.6f seconds\n", size, time_spent);
+}
 
-	start = clock();
+int main(void) {
+    setvbuf(stdin, NULL, _IONBF, 0);
+    setvbuf(stdout, NULL, _IONBF, 0);
 
-	for (i = 0; i < size; i++)
-	{
-		for (j = 0; j < size; j++)
-		{
-			elem_c = 0;
-			for (r = 0; r < size; r++)
-			{
-				elem_c = elem_c + a[i][r] * b[r][j];
-				c[i][j] = elem_c;
-			}
-		}
-	}
+    int sizes[] = {200, 400, 800}; // Example sizes
+    for (int i = 0; i < sizeof(sizes)/sizeof(sizes[0]); i++) {
+        multiply_and_time(sizes[i]);
+    }
 
-	end = clock();
-	time_spent = (double)(end - start) / CLOCKS_PER_SEC;
-
-	printf("Multiplication time: %.6f seconds\n", time_spent);
-	return(0);
+    return 0;
 }
 */
 
